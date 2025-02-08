@@ -6,7 +6,7 @@ import AdminDashboard from "./components/AdminDashboard";
 import { AuthContext } from "./context/AuthProvider";
 
 function App() {
-	const authData = useContext(AuthContext);
+	const [userData,setUserData] = useContext(AuthContext);
 	const [user, setUser] = useState(null);
 	const [loggedinUserdata, setLoggedinUserdata] = useState(null);
 
@@ -22,14 +22,11 @@ function App() {
 	}, []);
 
 	const handleLogin = (email, password) => {
-		if (
-			authData &&
-			authData.admin.find((e) => e.email === email && e.password === password)
-		) {
+		if (email=="admin@me.com" && password=="123") {
 			localStorage.setItem("loggedInUser", JSON.stringify({ role: "admin" }));
 			setUser("admin"); // Set correctly
-		} else if (authData) {
-			const employee = authData.employees.find(
+		} else if (userData) {
+			const employee = userData.find(
 				(e) => e.email === email && e.password === password
 			);
 			if (employee) {
